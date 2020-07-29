@@ -1,0 +1,33 @@
+﻿@page "/"
+@inject Popper Popper
+
+
+<input type="button" id="button" @ref=element aria-describedby="tooltip" value="My Button" />
+<span id="tooltip" @ref=tooltip role="tooltip">My tooltip</span>
+
+
+
+@code {
+    protected ElementReference element;
+
+    protected ElementReference tooltip;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        var options = new {
+            placement = "right",
+            modifiers = new[]
+            {
+                new
+                {
+                    name = "offset",
+                    options = new
+                    {
+                        offset = new[] {10, 20}
+                    }
+                }
+            }
+        };
+        await Popper.CreatePopperAsync(element, tooltip, options);
+    }
+}
