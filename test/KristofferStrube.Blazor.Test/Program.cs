@@ -9,7 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.JSInterop;
 
-namespace Blazor.Extensions.Test
+namespace KristofferStrube.Blazor.Test
 {
     public class Program
     {

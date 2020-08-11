@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Blazor.Extensions.Popper\Blazor.Extensions.Popper.csproj" />
+    <ProjectReference Include="..\..\src\KristofferStrube.Blazor.Popper\KristofferStrube.Blazor.Popper.csproj" />
   </ItemGroup>
 
 </Project>

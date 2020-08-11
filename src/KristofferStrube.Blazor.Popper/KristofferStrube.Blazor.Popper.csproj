@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Title>Blazor Extensions Popper</Title>
     <Description>Popper.js wrapper implementation for ASP.NET Core Blazor.</Description>
-    <PackageId>Blazor.Extensions.Popper</PackageId>
+    <PackageId>KristofferStrube.Blazor.Popper</PackageId>
     <PackageVersion>0.1.0</PackageVersion>
   </PropertyGroup>
 
@@ -21,11 +21,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="wwwroot\blazor.extensions.popper.js" />
+    <None Remove="wwwroot\KristofferStrube.Blazor.popper.js" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="wwwroot\blazor.extensions.popper.js">
+    <Content Include="wwwroot\KristofferStrube.Blazor.popper.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

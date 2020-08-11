@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
-namespace Blazor.Extensions
+namespace KristofferStrube.Blazor
 {
     public class Popper
     {
