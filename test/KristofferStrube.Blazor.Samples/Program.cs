@@ -9,7 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.JSInterop;
 
-namespace KristofferStrube.Blazor.Test
+namespace KristofferStrube.Blazor.Popper.Samples
 {
     public class Program
     {
@@ -20,7 +20,7 @@ namespace KristofferStrube.Blazor.Test
 
             builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
-            builder.Services.AddTransient(sp => new Popper.Popper(sp.GetService<IJSRuntime>()));
+            builder.Services.AddTransient(sp => new Popper(sp.GetService<IJSRuntime>()));
 
             await builder.Build().RunAsync();
         }

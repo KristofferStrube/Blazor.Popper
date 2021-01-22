@@ -1,38 +1,41 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Reflection;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace KristofferStrube.Blazor.Popper.JsonConverters
+namespace KristofferStrube.Blazor.Popper
 {
-    class FnConverter : JsonConverter<Func<ModifierArguments, State?>>
+    class EnumDescriptionConverter<T> : JsonConverter<T> where T : IComparable, IFormattable, IConvertible
     {
-        public override Func<ModifierArguments, State> Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        public override T Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            throw new NotImplementedException();
-        }
+            string jsonValue = reader.GetString();
 
-        public override void Write(Utf8JsonWriter writer, Func<ModifierArguments, State> value, JsonSerializerOptions options)
-        {
-            throw new NotImplementedException();
-        }
-    }
-
-    class PlacementConverter : JsonConverter<Placement>
-    {
-        public override Placement Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void Write(Utf8JsonWriter writer, Placement value, JsonSerializerOptions options)
-        {
-            switch (value)
+            foreach (var fi in typeToConvert.GetFields())
             {
-                case Placement.Bottom: writer.WriteStringValue("bottom"); break;
-                default: writer.WriteStringValue("top"); break;
+                DescriptionAttribute description = (DescriptionAttribute)fi.GetCustomAttribute(typeof(DescriptionAttribute), false);
+
+                if (description != null)
+                {
+                    if (description.Description == jsonValue)
+                    {
+                        return (T)fi.GetValue(null);
+                    }
+                }
             }
+            throw new JsonException($"string {jsonValue} was not found as a description in the enum {typeToConvert}");
+        }
+
+        public override void Write(Utf8JsonWriter writer, T value, JsonSerializerOptions options)
+        {
+            FieldInfo fi = value.GetType().GetField(value.ToString());
+
+            DescriptionAttribute description = (DescriptionAttribute)fi.GetCustomAttribute(typeof(DescriptionAttribute), false);
+
+            writer.WriteStringValue(description.Description);
         }
     }
 

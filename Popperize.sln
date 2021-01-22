@@ -5,9 +5,7 @@ VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KristofferStrube.Blazor.Popper", "src\KristofferStrube.Blazor.Popper\KristofferStrube.Blazor.Popper.csproj", "{43358CE1-92A2-4402-9F8C-E5D270B63EEE}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{ABB4D6C2-4E40-4C1B-B696-B9535AF6F4E7}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KristofferStrube.Blazor.Test", "test\KristofferStrube.Blazor.Test\KristofferStrube.Blazor.Test.csproj", "{C5D14C58-74C3-41DE-9DE3-247AB4469809}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KristofferStrube.Blazor.Popper.Samples", "test\KristofferStrube.Blazor.Samples\KristofferStrube.Blazor.Popper.Samples.csproj", "{C5D14C58-74C3-41DE-9DE3-247AB4469809}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

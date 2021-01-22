@@ -1,20 +1,34 @@
-﻿window.PopperWrapper = {
-    createPopper: function (reference, popper, options, dotnetHelper) {
-        options.onFirstUpdate = window.PopperWrapper.lookupStateAction(dotnetHelper, options.onFirstUpdate);
-        const popperInstance = Popper.createPopper(reference, popper, options);
-    },
-    lookupStateAction: function (dotnetHelper, guid) {
-        return (state) => {
-            console.log(state);
-            const stateCopy = {
-                attributes: state.attributes,
-                elements: state.elements,
-                modifiersData: state.modifiersData,
-                orderedModifiers: state.orderedModifiers,
-                rects: state.rects,
-                styles: state.styles
-            }
-            dotnetHelper.invokeMethodAsync('CallAction', guid, stateCopy)
-        };
+﻿export function createPopper(reference, popper, options, objRef) {
+    options.onFirstUpdate = (state) => {
+        objRef.invokeMethodAsync('CallOnFirstUpdate', stripState(state))
+    };
+
+    return Popper.createPopper(reference, popper, options);
+}
+
+export function getStateOfInstance(instance) {
+    return stripState(instance.state)
+}
+
+export function updateOnInstance(instance) {
+    return instance.update().then(state => stripState(state));
+}
+
+export function setOptionsOnInstance(instance, options, objRef) {
+    options.onFirstUpdate = (state) => {
+        objRef.invokeMethodAsync('CallOnFirstUpdate', stripState(state))
+    };
+    return instance.setOptions(options).then(state => stripState(state));
+}
+
+function stripState(state) {
+    return {
+        placement: state.placement,
+        attributes: state.attributes,
+        elements: state.elements,
+        modifiersData: state.modifiersData,
+        orderedModifiers: state.orderedModifiers,
+        rects: state.rects,
+        styles: state.styles
     }
 }

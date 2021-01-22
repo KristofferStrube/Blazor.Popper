@@ -1,0 +1,41 @@
+﻿@page "/"
+@inject Popper Popper
+
+<span @ref=reference aria-describedby="tooltip" value="My Button">Reference</span>
+<span id="tooltip" @ref=tooltip role="tooltip">@state?.Placement.ToString()</span>
+
+<br />
+<br />
+@foreach (Placement placement in Enum.GetValues(typeof(Placement)))
+{
+    <button @onclick="()=>SetPlacement(placement)">@placement.ToString()</button>
+}
+
+
+@code {
+    protected ElementReference reference;
+
+    protected ElementReference tooltip;
+
+    protected Instance Instance;
+
+    protected State state;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Instance = await Popper.CreatePopperAsync(reference, tooltip, new());
+        }
+    }
+
+    public async Task SetPlacement(Placement placement)
+    {
+        Options options = new()
+        {
+            Placement = placement
+        };
+        state = await Instance.SetOptions(options);
+        StateHasChanged();
+    }
+}
