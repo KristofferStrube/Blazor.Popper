@@ -5,16 +5,16 @@ A Blazor wrapper for the JavaScript library Popper.js
 ## Prerequisites
 You need to install .NET 5.0 or newer to use the library.
 
-(Download .NET 5)[https://dotnet.microsoft.com/download/dotnet/5.0]
+[Download .NET 5](https://dotnet.microsoft.com/download/dotnet/5.0)
 
 ## Installation
-You can install it with the Package Manager in your IDE or alternatively using the command line:
+You can install the package via Nuget with the Package Manager in your IDE or alternatively using the command line:
 ```bash
 dotnet add package KristofferStrube.Blazor.Popper
 ```
 
 # Usage
-The package can be used in Blazor websites both WebAssembly and Server.
+The package can be used in Blazor projects both WebAssembly and Server-side.
 ## Assets
 You first need to reference `popper.js` since this is only a wrapper. You can do this using you favorite JS package manager (e.g. `NPM` or `Library Manager`) or just add the following to the body of your `index.html` file for WebAssembly or `_Host.cshtml` for Blazor Server-side after the point where you reference `_framework/blazor.webassembly.js`.
 ```html
