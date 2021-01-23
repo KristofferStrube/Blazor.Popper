@@ -46,4 +46,25 @@ namespace KristofferStrube.Blazor.Popper
         [Description("fixed")]
         Fixed
     }
+    public enum ModifierPhases
+    {
+        [Description("beforeRead")]
+        BeforeRead,
+        [Description("read")]
+        Read,
+        [Description("afterRead")]
+        AfterRead,
+        [Description("beforeMain")]
+        BeforeMain,
+        [Description("main")]
+        Main,
+        [Description("afterMain")]
+        AfterMain,
+        [Description("beforeWrite")]
+        BeforeWrite,
+        [Description("write")]
+        Write,
+        [Description("afterWrite")]
+        AfterWrite,
+    }
 }
