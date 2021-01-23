@@ -32,11 +32,7 @@ export function setOptionsOnInstance(instance, options) {
     return instance.setOptions(options).then(state => stripState(state));
 }
 
-export function getStateOfModifierArguments(modifierArguments) {
-    return stripState(modifierArguments.state)
-}
-
-export function stripState(state) {
+function stripState(state) {
     return {
         placement: state.placement,
         attributes: state.attributes,
