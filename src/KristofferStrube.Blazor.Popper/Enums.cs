@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace KristofferStrube.Blazor.Popper
 {
+    [JsonConverter(typeof(EnumDescriptionConverter<Placement>))]
     public enum Placement
     {
         [Description("auto")]
@@ -39,6 +41,8 @@ namespace KristofferStrube.Blazor.Popper
         [Description("left-end")]
         LeftEnd
     }
+
+    [JsonConverter(typeof(EnumDescriptionConverter<Strategy>))]
     public enum Strategy
     {
         [Description("absolute")]
@@ -46,6 +50,8 @@ namespace KristofferStrube.Blazor.Popper
         [Description("fixed")]
         Fixed
     }
+
+    [JsonConverter(typeof(EnumDescriptionConverter<ModifierPhases>))]
     public enum ModifierPhases
     {
         [Description("beforeRead")]

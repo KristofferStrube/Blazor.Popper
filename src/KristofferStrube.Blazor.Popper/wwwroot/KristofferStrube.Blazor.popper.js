@@ -1,5 +1,7 @@
 ﻿export function createPopper(reference, popper, options) {
-    options.onFirstUpdate = (state) => options.objRef.invokeMethodAsync('CallOnFirstUpdate', stripState(state));
+    options.onFirstUpdate = (state) => {
+        console.log(state); options.objRef.invokeMethodAsync('CallOnFirstUpdate', stripState(state));
+    }
     if (options.modifiers != null) {
         options.modifiers = options.modifiers.map(modifier => {
             var objRef = modifier.objRef;
@@ -7,6 +9,7 @@
                 modifierArguments.state = stripState(modifierArguments.state);
                 delete modifierArguments.instance;
                 delete modifierArguments.options;
+                console.log(modifierArguments)
                 objRef.invokeMethodAsync('CallFn', modifierArguments);
             }
             delete modifier.objRef;
@@ -34,12 +37,8 @@ export function setOptionsOnInstance(instance, options) {
 
 function stripState(state) {
     return {
-        placement: state.placement,
         attributes: state.attributes,
-        elements: state.elements,
         modifiersData: state.modifiersData,
-        orderedModifiers: state.orderedModifiers,
-        rects: state.rects,
-        styles: state.styles
+        orderedModifiers: state.orderedModifiers.map(modifier => ({ name: modifier.name, enabled: modifier.enabled, phase: modifier.phase })),
     }
 }

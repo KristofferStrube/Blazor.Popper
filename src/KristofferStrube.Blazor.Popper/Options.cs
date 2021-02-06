@@ -15,7 +15,6 @@ namespace KristofferStrube.Blazor.Popper
         }
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-        [JsonConverter(typeof(EnumDescriptionConverter<Placement>))]
         [JsonPropertyName("placement")]
         public Placement Placement { get; set; }
 
@@ -24,7 +23,6 @@ namespace KristofferStrube.Blazor.Popper
         public Modifier[] Modifiers { get; set; }
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-        [JsonConverter(typeof(EnumDescriptionConverter<Strategy>))]
         [JsonPropertyName("strategy")]
         public Strategy Strategy { get; set; }
 

@@ -52,7 +52,7 @@ In any page that need a popper you can then inject Popper by adding the followin
 ```
 @inject Popper Popper;
 ```
-The you can use the popper to create a popper instance between to `ElementReference`'s like so:
+Then you can use the popper to create a popper instance between two `ElementReference`'s like so:
 ```csharp
 <span @ref=reference>reference</span>
 <span @ref=popper>popper</span>

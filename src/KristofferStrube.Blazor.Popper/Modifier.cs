@@ -10,8 +10,6 @@ namespace KristofferStrube.Blazor.Popper
 {
     public class Modifier : IDisposable
     {
-        [JsonIgnore]
-        public IJSInProcessObjectReference JSWrapper { get; set; }
         public DotNetObjectReference<Modifier> objRef { get; set; }
         public Modifier(string Name, bool Enabled, ModifierPhases Phase, Func<ModifierArguments, State?> Fn)
         {
@@ -29,7 +27,6 @@ namespace KristofferStrube.Blazor.Popper
         [JsonPropertyName("enabled")]
         public bool Enabled { get; set; }
 
-        [JsonConverter(typeof(EnumDescriptionConverter<ModifierPhases>))]
         [JsonPropertyName("phase")]
         public ModifierPhases Phase { get; set; }
 
