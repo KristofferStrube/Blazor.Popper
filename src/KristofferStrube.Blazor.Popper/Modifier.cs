@@ -70,4 +70,10 @@ namespace KristofferStrube.Blazor.Popper
 
         public string Name { get; set; }
     }
+
+
+    public class ModifierShallow
+    {
+
+    }
 }

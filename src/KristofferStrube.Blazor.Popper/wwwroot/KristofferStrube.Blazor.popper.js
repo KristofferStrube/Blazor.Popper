@@ -1,7 +1,6 @@
 ﻿export function createPopper(reference, popper, options) {
-    options.onFirstUpdate = (state) => {
-        console.log(state); options.objRef.invokeMethodAsync('CallOnFirstUpdate', stripState(state));
-    }
+    options.onFirstUpdate = (state) => options.objRef.invokeMethodAsync('CallOnFirstUpdate', stripState(state));
+
     if (options.modifiers != null) {
         options.modifiers = options.modifiers.map(modifier => {
             var objRef = modifier.objRef;
@@ -9,7 +8,6 @@
                 modifierArguments.state = stripState(modifierArguments.state);
                 delete modifierArguments.instance;
                 delete modifierArguments.options;
-                console.log(modifierArguments)
                 objRef.invokeMethodAsync('CallFn', modifierArguments);
             }
             delete modifier.objRef;
@@ -39,6 +37,7 @@ function stripState(state) {
     return {
         attributes: state.attributes,
         modifiersData: state.modifiersData,
-        orderedModifiers: state.orderedModifiers.map(modifier => ({ name: modifier.name, enabled: modifier.enabled, phase: modifier.phase })),
+        // We need a custom serilizer/deserilizer before we can parse this back.
+        // orderedModifiers: state.orderedModifiers.map(modifier => ({ name: modifier.name, enabled: modifier.enabled, phase: modifier.phase })),
     }
 }
