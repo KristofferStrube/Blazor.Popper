@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
@@ -17,16 +19,28 @@ namespace KristofferStrube.Blazor.Popper
             this.Enabled = Enabled;
             this.Phase = Phase;
             this.Fn = Fn;
-            objRef = DotNetObjectReference.Create(this);
+            this.objRef = DotNetObjectReference.Create(this);
+        }
+
+        public Modifier(ModifierName modifierName)
+        {
+            // Using reflection to get the DescriptionAttribute for the enum value.
+            FieldInfo fi = typeof(ModifierName).GetField(modifierName.ToString());
+            DescriptionAttribute description = (DescriptionAttribute)fi.GetCustomAttribute(typeof(DescriptionAttribute), false);
+
+            this.Name = description.Description;
+            this.objRef = DotNetObjectReference.Create(this);
         }
 
         // Required properties
         [JsonPropertyName("name")]
         public string Name { get; set; }
 
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         [JsonPropertyName("enabled")]
         public bool Enabled { get; set; }
 
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         [JsonPropertyName("phase")]
         public ModifierPhases Phase { get; set; }
 
@@ -34,6 +48,8 @@ namespace KristofferStrube.Blazor.Popper
         public Func<ModifierArguments, State?> Fn { get; set; }
         [JSInvokable("CallFn")]
         public State? CallFn(ModifierArguments modifierArguments) => Fn(modifierArguments);
+        [JsonPropertyName("hasFn")]
+        public bool HasFn => Fn != default;
 
         // Optional properties
 
@@ -69,11 +85,5 @@ namespace KristofferStrube.Blazor.Popper
         public State State { get; set; }
 
         public string Name { get; set; }
-    }
-
-
-    public class ModifierShallow
-    {
-
     }
 }

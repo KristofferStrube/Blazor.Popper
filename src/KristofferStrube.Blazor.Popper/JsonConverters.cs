@@ -38,17 +38,4 @@ namespace KristofferStrube.Blazor.Popper
             writer.WriteStringValue(description.Description);
         }
     }
-
-    class ActionStateConverter : JsonConverter<Action<State>>
-    {
-        public override Action<State> Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void Write(Utf8JsonWriter writer, Action<State> value, JsonSerializerOptions options)
-        {
-            writer.WriteStringValue(Guid.NewGuid());
-        }
-    }
 }

@@ -73,4 +73,27 @@ namespace KristofferStrube.Blazor.Popper
         [Description("afterWrite")]
         AfterWrite,
     }
+
+    [JsonConverter(typeof(EnumDescriptionConverter<ModifierName>))]
+    public enum ModifierName
+    {
+        [Description("popperOffsets")]
+        PopperOffsets,
+        [Description("offset")]
+        Offset,
+        [Description("preventOverflow")]
+        PreventOverflow,
+        [Description("arrow")]
+        Arrow,
+        [Description("flip")]
+        Flip,
+        [Description("hide")]
+        Hide,
+        [Description("computeStyles")]
+        ComputeStyles,
+        [Description("applyStyles")]
+        ApplyStyles,
+        [Description("eventListeners")]
+        EventListeners,
+    }
 }

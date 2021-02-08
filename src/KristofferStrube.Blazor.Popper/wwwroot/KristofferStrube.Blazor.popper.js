@@ -4,17 +4,19 @@
     if (options.modifiers != null) {
         options.modifiers = options.modifiers.map(modifier => {
             var objRef = modifier.objRef;
-            modifier.fn = (modifierArguments) => {
-                modifierArguments.state = stripState(modifierArguments.state);
-                delete modifierArguments.instance;
-                delete modifierArguments.options;
-                objRef.invokeMethodAsync('CallFn', modifierArguments);
+            if (modifier.hasFn) {
+                modifier.fn = (modifierArguments) => {
+                    modifierArguments.state = stripState(modifierArguments.state);
+                    delete modifierArguments.instance;
+                    delete modifierArguments.options;
+                    objRef.invokeMethodAsync('CallFn', modifierArguments);
+                }
             }
             delete modifier.objRef;
+            delete modifier.hasFn;
             return modifier;
         });
     }
-
     return Popper.createPopper(reference, popper, options);
 }
 

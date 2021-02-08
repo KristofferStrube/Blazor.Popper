@@ -1,7 +1,7 @@
 ﻿@page "/"
 @inject Popper Popper
 
-<span @ref=reference aria-describedby="tooltip" value="My Button">Reference</span>
+<span id="reference" @ref=reference aria-describedby="tooltip" value="My Button">Reference</span>
 <span id="tooltip" @ref=tooltip role="tooltip">@state?.Placement.ToString()</span>
 
 <br />
