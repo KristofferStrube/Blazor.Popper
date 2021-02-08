@@ -8,6 +8,10 @@
 # Introduction
 A Blazor wrapper for the JavaScript library Popper.js
 
+# Demo
+
+The sample project can be demoed at [https://kristofferstrube.github.io/Blazor.Popper/](https://kristofferstrube.github.io/Blazor.Popper/)
+
 # Getting Started
 ## Prerequisites
 You need to install .NET 5.0 or newer to use the library.
