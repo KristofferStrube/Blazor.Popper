@@ -2,13 +2,14 @@
 @inject Popper Popper
 
 <span id="reference" @ref=reference aria-describedby="tooltip" value="My Button">Reference</span>
-<span id="tooltip" @ref=tooltip role="tooltip">Response From First Update:<br /> @respFromFirstUpdate</span>
-
+<span id="popper" @ref=tooltip role="tooltip">Response From First Update:<br /> @respFromFirstUpdate</span>
 
 @code {
     protected ElementReference reference;
 
     protected ElementReference tooltip;
+
+    protected ElementReference parent;
 
     protected string respFromFirstUpdate { get; set; }
 
@@ -16,7 +17,14 @@
     {
         if (firstRender)
         {
-            Options options = new() { OnFirstUpdate = (State state) => { respFromFirstUpdate = System.Text.Json.JsonSerializer.Serialize(state); StateHasChanged(); } };
+            Options options = new()
+            {
+                OnFirstUpdate = (State state) =>
+                {
+                    respFromFirstUpdate = state.Placement.ToString();
+                    StateHasChanged();
+                },
+            };
             await Popper.CreatePopperAsync(reference, tooltip, options);
         }
     }

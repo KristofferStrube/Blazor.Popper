@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
@@ -11,6 +12,12 @@ namespace KristofferStrube.Blazor.Popper
     {
         [JsonPropertyName("attributes")]
         public Attributes Attributes { get; set; }
+
+        [JsonPropertyName("elements")]
+        public string[] Elements { get; set; }
+
+        [JsonPropertyName("modifiersData")]
+        public Dictionary<string, JsonElement> ModifiersData { get; set; }
 
         [JsonPropertyName("orderedModifiers")]
         public Modifier[] OrderedModifiers { get; set; }

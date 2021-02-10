@@ -181,3 +181,59 @@ app {
         display: block;
     }
 }
+
+
+#popper {
+    background: #333;
+    color: white;
+    font-weight: bold;
+    padding: 4px 8px;
+    font-size: 13px;
+    border-radius: 4px;
+}
+
+#reference {
+    background: #CCC;
+    color: black;
+    font-weight: bold;
+    padding: 4px 8px;
+    font-size: 13px;
+    border-radius: 4px;
+}
+
+
+.arrow,
+.arrow::before {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    z-index: -1;
+}
+
+.arrow::before {
+    content: '';
+    transform: rotate(45deg);
+    background: #333;
+}
+
+#popper[data-popper-placement^='top'] > .arrow {
+    bottom: -4px;
+}
+
+#popper[data-popper-placement^='bottom'] > .arrow {
+    top: -4px;
+}
+
+#popper[data-popper-placement^='left'] > .arrow {
+    right: -4px;
+}
+
+#popper[data-popper-placement^='right'] > .arrow {
+    left: -4px;
+}
+
+/* Hide the popper when the reference is hidden */
+#popper[data-popper-reference-hidden] {
+    visibility: hidden;
+    pointer-events: none;
+}

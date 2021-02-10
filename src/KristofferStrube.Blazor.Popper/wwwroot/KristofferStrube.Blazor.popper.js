@@ -38,7 +38,9 @@ export function setOptionsOnInstance(instance, options) {
 function stripState(state) {
     return {
         attributes: state.attributes,
+        elements: Object.keys(state.elements),
         modifiersData: state.modifiersData,
+        placement: state.placement,
         // We need a custom serilizer/deserilizer before we can parse this back.
         // orderedModifiers: state.orderedModifiers.map(modifier => ({ name: modifier.name, enabled: modifier.enabled, phase: modifier.phase })),
     }
