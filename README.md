@@ -25,7 +25,7 @@ dotnet add package KristofferStrube.Blazor.Popper
 ```
 
 # Usage
-The package can be used in Blazor projects both WebAssembly and Server-side.
+The package can be used in Blazor WebAssembly projects.
 ## Assets
 You first need to reference `popper.js` since this is only a wrapper. You can do this using you favorite JS package manager (e.g. `NPM` or `Library Manager`) or just add the following to the body of your `index.html` file for WebAssembly or `_Host.cshtml` for Blazor Server-side after the point where you reference `_framework/blazor.webassembly.js`.
 ```html
