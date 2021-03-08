@@ -26,7 +26,7 @@
                 Placement = Placement.Top,
                 Modifiers = new Modifier[] {
                     new(ModifierName.Flip) {
-                        Options = new {boundary = parent, fallbackPlacements = new Placement[] { Placement.Right, Placement.Bottom } },
+                        Options = new FlipOptions() {Boundary = parent, FallbackPlacements = new[] { Placement.Right, Placement.Bottom } },
                     },
                 }
             };

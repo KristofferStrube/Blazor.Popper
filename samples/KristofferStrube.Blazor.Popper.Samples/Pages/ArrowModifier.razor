@@ -30,7 +30,7 @@
                 Placement = Placement.Right,
                 Modifiers = new Modifier[] {
                     new(ModifierName.Arrow) {
-                        Options = new {element = arrow},
+                        Options = new ArrowOptions {Element = arrow},
                     },
                     new("applyArrowHide", true, ModifierPhases.Write, (args) =>
                     {
@@ -64,11 +64,5 @@
             };
             Instance instance = await Popper.CreatePopperAsync(reference, tooltip, options);
         }
-    }
-
-    public class ArrowData
-    {
-        public float y { get; set; }
-        public float centerOffset { get; set; }
     }
 }

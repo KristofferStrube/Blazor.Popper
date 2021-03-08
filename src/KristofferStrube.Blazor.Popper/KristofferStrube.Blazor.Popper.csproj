@@ -4,7 +4,11 @@
     <Title>Blazor Popper wrapper</Title>
     <Description>Popper.js wrapper implementation for Blazor.</Description>
     <PackageId>KristofferStrube.Blazor.Popper</PackageId>
-    <PackageVersion>0.2.2</PackageVersion>
+    <PackageTags>Blazor;Wrapper;Popper;Tooltip;JSInterop</PackageTags>
+    <RepositoryUrl>https://github.com/elmahio/Elmah.Io.Client</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageVersion>0.2.3</PackageVersion>
     <TargetFramework>net5.0</TargetFramework>
     <Authors>Kristoffer Strube</Authors>
   </PropertyGroup>

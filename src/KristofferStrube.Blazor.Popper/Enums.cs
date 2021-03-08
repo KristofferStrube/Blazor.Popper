@@ -96,4 +96,13 @@ namespace KristofferStrube.Blazor.Popper
         [Description("eventListeners")]
         EventListeners,
     }
+
+    [JsonConverter(typeof(EnumDescriptionConverter<RootBoundary>))]
+    public enum RootBoundary
+    {
+        [Description("viewport")]
+        Viewport,
+        [Description("document")]
+        Document,
+    }
 }

@@ -23,7 +23,7 @@
                 Placement = Placement.Bottom,
                 Modifiers = new Modifier[] {
                     new(ModifierName.PreventOverflow) {
-                        Options = new {padding = 10, boundary = parent},
+                        Options = new PreventOverflowOptions() {Padding = 10, Boundary = parent},
                     }
                 }
             };
