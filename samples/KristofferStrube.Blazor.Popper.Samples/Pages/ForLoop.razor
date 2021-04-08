@@ -1,0 +1,19 @@
+﻿@page "/ForLoop"
+
+@foreach (var item in Items)
+{
+    <ButtonPopperComponent PopperText=@item.tooltip>
+        @item.text
+    </ButtonPopperComponent>
+    <br />
+}
+
+
+@code {
+    protected List<(string text, string tooltip, string id)> Items = new()
+    {
+            ("this", "tooltip 1", "1"),
+            ("that", "tooltip 2", "2"),
+            ("and now this", "tooltip 3", "3"),
+        };
+}

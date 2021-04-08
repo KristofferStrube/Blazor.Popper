@@ -1,0 +1,45 @@
+﻿@inject Popper Popper
+
+<button type="button" id="reference" @ref=reference aria-describedby="tooltip" @onclick="() => Clicked()">
+    @ChildContent
+</button>
+<div id="popper" @ref=tooltip role="tooltip" hidden=@hidden>
+    @PopperText
+</div>
+
+@code {
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    public string PopperText { get; set; }
+
+    protected ElementReference reference;
+
+    protected ElementReference tooltip;
+
+    protected Instance instance;
+
+    protected bool hidden = true;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Options options = new Options()
+            {
+                Placement = Placement.Right
+            };
+            instance = await Popper.CreatePopperAsync(reference, tooltip, options);
+        }
+    }
+
+    protected async Task Clicked()
+    {
+        hidden = !hidden;
+        if (!hidden)
+        {
+            await instance.Update();
+        }
+    }
+}
