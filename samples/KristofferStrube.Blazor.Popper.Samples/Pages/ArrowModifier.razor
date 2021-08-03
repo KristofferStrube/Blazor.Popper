@@ -55,10 +55,10 @@
                         return args.State;
                     }),
                     new(ModifierName.Offset) {
-                        Options = new {offset = new int[]{0, 4}}
+                        Options = new OffsetOptions(0, 4)
                     },
                     new(ModifierName.PreventOverflow) {
-                        Options = new {boundary = parent},
+                        Options = new PreventOverflowOptions { Boundary = parent },
                     },
                 }
             };

@@ -38,4 +38,20 @@ namespace KristofferStrube.Blazor.Popper
             writer.WriteStringValue(description.Description);
         }
     }
+
+    class TwoTupleConverter : JsonConverter<(double, double)>
+    {
+        public override (double, double) Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Write(Utf8JsonWriter writer, (double, double) value, JsonSerializerOptions options)
+        {
+            writer.WriteStartArray();
+            writer.WriteNumberValue(value.Item1);
+            writer.WriteNumberValue(value.Item2);
+            writer.WriteEndArray();
+        }
+    }
 }

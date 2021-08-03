@@ -23,7 +23,8 @@
                 Placement = Placement.Bottom,
                 Modifiers = new Modifier[] {
                     new(ModifierName.PreventOverflow) {
-                        Options = new PreventOverflowOptions() {Padding = 10, Boundary = parent},
+                        //Options = new PreventOverflowOptions(parent, padding: 10),
+                        Options = new PreventOverflowOptions(parent, padding: 300, tetherOffsetFunction: e => 100),
                     }
                 }
             };
