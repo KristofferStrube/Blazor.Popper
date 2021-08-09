@@ -17,6 +17,13 @@
             return modifier;
         });
     }
+
+    if (!(reference instanceof Element)) {
+        var objRef = reference.objRef;
+        reference.getBoundingClientRect = () => objRef.invokeMethod('CallGetBoundingClientRect');
+        delete reference.objRef;
+    }
+
     return Popper.createPopper(reference, popper, options);
 }
 

@@ -1,0 +1,53 @@
+﻿@page "/VirtualElementReference"
+@inject Popper Popper
+
+<div @ref=parent @onmousemove="OnMouseMove" style="width:100%;height:200px;border:2px dashed black;">
+    <span id="popper" @ref=tooltip role="tooltip">This will follow the mouse</span>
+</div>
+
+
+@code {
+    protected ElementReference tooltip;
+
+    protected ElementReference parent;
+
+    protected VirtualElement virtualElement;
+
+    protected Instance instance;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Options options = new()
+            {
+                Placement = Placement.BottomStart,
+                Modifiers = new Modifier[] {
+                    new(ModifierName.Offset) {
+                        Options = new OffsetOptions() { Offset = new double[] { 10, 0 } }
+                    },
+                    new(ModifierName.PreventOverflow) {
+                        Options = new PreventOverflowOptions() {Padding = 10, Boundary = parent, AltAxis = true, TetherOffset = -10 },
+                    },
+                }
+            };
+            virtualElement = new VirtualElement();
+            virtualElement.ContextElement = parent;
+            virtualElement.GetBoundingClientRect = () => new ClientRect();
+
+            instance = await Popper.CreatePopperAsync(virtualElement, tooltip, options);
+        }
+    }
+
+    protected async Task OnMouseMove(MouseEventArgs eventArgs)
+    {
+        virtualElement.GetBoundingClientRect = () => new ClientRect()
+        {
+            Top = eventArgs.ClientY,
+            Right = eventArgs.ClientX,
+            Bottom = eventArgs.ClientY,
+            Left = eventArgs.ClientX,
+        };
+        await instance.ForceUpdate();
+    }
+}

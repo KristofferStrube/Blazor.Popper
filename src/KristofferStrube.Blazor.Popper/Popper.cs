@@ -24,5 +24,12 @@ namespace KristofferStrube.Blazor.Popper
             var jSInstance = await popperWrapper.InvokeAsync<IJSObjectReference>("createPopper", reference, popper, options);
             return new(jSInstance, popperWrapper);
         }
+
+        public async Task<Instance> CreatePopperAsync(VirtualElement reference, ElementReference popper, Options options)
+        {
+            var popperWrapper = await jSRuntime.InvokeAsync<IJSInProcessObjectReference>("import", "./_content/KristofferStrube.Blazor.Popper/KristofferStrube.Blazor.popper.js");
+            var jSInstance = await popperWrapper.InvokeAsync<IJSObjectReference>("createPopper", reference, popper, options);
+            return new(jSInstance, popperWrapper);
+        }
     }
 }
