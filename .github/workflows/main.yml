@@ -18,7 +18,7 @@ jobs:
         - name: Setup .NET Core
           uses: actions/setup-dotnet@v1.7.2
           with:
-            dotnet-version: 5.0.102
+            dotnet-version: 6.0.101
 
         # Run tests
         - name: Test
