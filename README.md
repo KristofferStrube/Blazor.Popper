@@ -14,9 +14,9 @@ The sample project can be demoed at [https://kristofferstrube.github.io/Blazor.P
 
 # Getting Started
 ## Prerequisites
-You need to install .NET 5.0 or newer to use the library.
+You need to install .NET 6.0 or newer to use the library.
 
-[Download .NET 5](https://dotnet.microsoft.com/download/dotnet/5.0)
+[Download .NET 6](https://dotnet.microsoft.com/download/dotnet/6.0)
 
 ## Installation
 You can install the package via Nuget with the Package Manager in your IDE or alternatively using the command line:
