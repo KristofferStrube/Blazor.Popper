@@ -1,19 +1,39 @@
 ﻿@page "/ForLoop"
 
-@foreach (var item in Items)
+@for (int i = 0; i < Items.Count; i++)
 {
-    <ButtonPopperComponent PopperText=@item.tooltip>
-        @item.text
-    </ButtonPopperComponent>
+    var j = i;
+    <button type="button" class="reference" @ref=Items[j].Reference aria-describedby="tooltip" @onclick="() => Items[j].Active = !Items[j].Active">
+        @Items[j].Text
+    </button>
+    <PopperComponent ReferenceRequestor="() => Items[j].Reference" Placement=Placement.Right Active=Items[j].Active AddArrow=true Id="tooltip">
+        @Items[j].Tooltip
+    </PopperComponent>
     <br />
 }
 
 
 @code {
-    protected List<(string text, string tooltip, string id)> Items = new()
-    {
-            ("this", "tooltip 1", "1"),
-            ("that", "tooltip 2", "2"),
-            ("and now this", "tooltip 3", "3"),
+    protected List<Element> Items = new()
+        {
+            new("this", "tooltip 1", "1"),
+            new("that", "tooltip 2", "2"),
+            new("and now this", "tooltip 3", "3"),
         };
+
+    public class Element
+    {
+        public Element(string Text, string Tooltip, string Id)
+        {
+            this.Text = Text;
+            this.Tooltip = Tooltip;
+            this.Id = Id;
+        }
+
+        public string Text { get; set; }
+        public string Tooltip { get; set; }
+        public string Id { get; set; }
+        public ElementReference Reference { get; set; }
+        public bool Active { get; set; }
+    }
 }

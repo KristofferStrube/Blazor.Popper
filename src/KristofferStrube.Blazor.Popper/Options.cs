@@ -1,41 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.JSInterop;
+using System;
 using System.Text.Json.Serialization;
-using Microsoft.JSInterop;
 
-namespace KristofferStrube.Blazor.Popper
+namespace KristofferStrube.Blazor.Popper;
+
+public class Options : IDisposable
 {
-    public class Options : IDisposable
+    public DotNetObjectReference<Options> objRef { get; set; }
+
+    public Options()
     {
-        public DotNetObjectReference<Options> objRef { get; set; }
+        objRef = DotNetObjectReference.Create(this);
+    }
 
-        public Options()
-        {
-            objRef = DotNetObjectReference.Create(this);
-        }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    [JsonPropertyName("placement")]
+    public Placement Placement { get; set; }
 
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-        [JsonPropertyName("placement")]
-        public Placement Placement { get; set; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonPropertyName("modifiers")]
+    public Modifier[] Modifiers { get; set; }
 
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        [JsonPropertyName("modifiers")]
-        public Modifier[] Modifiers { get; set; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    [JsonPropertyName("strategy")]
+    public Strategy Strategy { get; set; }
 
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-        [JsonPropertyName("strategy")]
-        public Strategy Strategy { get; set; }
+    [JsonIgnore]
+    public Action<State> OnFirstUpdate { get; set; }
 
-        [JsonIgnore]
-        public Action<State> OnFirstUpdate { get; set; }
+    [JSInvokable("CallOnFirstUpdate")]
+    public void CallOnFirstUpdate(State state) => OnFirstUpdate?.Invoke(state);
 
-        [JSInvokable("CallOnFirstUpdate")]
-        public void CallOnFirstUpdate(State state) => OnFirstUpdate?.Invoke(state);
-
-        public void Dispose()
-        {
-            GC.SuppressFinalize(this);
-            objRef?.Dispose();
-        }
+    public void Dispose()
+    {
+        GC.SuppressFinalize(this);
+        objRef?.Dispose();
     }
 }

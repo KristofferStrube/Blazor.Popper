@@ -1,0 +1,118 @@
+﻿@inject Popper Popper
+
+<span @ref="Tooltip" id=@Id class=@Class style="@(Active ? "" : "visibility:hidden;")">
+    <div class="arrow" @ref=Arrow style="@((hiddenArrow || !AddArrow) ? "visibility:hidden;" : "")"></div>
+    @ChildContent
+</span>
+
+@code {
+    [Parameter, EditorRequired]
+    public Func<ElementReference> ReferenceRequestor { get; set; }
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    public Placement Placement { get; set; } = Placement.Auto;
+
+    [Parameter]
+    public bool AddArrow { get; set; }
+
+    [Parameter]
+    public string Id { get; set; }
+
+    [Parameter]
+    public string Class { get; set; } = "popper";
+
+    [Parameter]
+    public bool Active { get; set; }
+
+    protected ElementReference Tooltip { get; set; }
+
+    protected ElementReference Arrow { get; set; }
+
+    protected bool hiddenArrow { get; set; }
+
+    protected Instance Instance { get; set; }
+
+    private Options Options()
+    {
+        if (AddArrow)
+        {
+            return new Options()
+                {
+                    Placement = Placement,
+                    Modifiers = new Modifier[]
+                        {
+                    new(ModifierName.Arrow) {
+                        Options = new ArrowOptions {Element = Arrow},
+                    },
+                    new("applyArrowHide", true, ModifierPhases.Write, (args) =>
+                    {
+                        if(args.State.Elements.Contains("arrow"))
+                        {
+                            if (args.State.ModifiersData["arrow"].GetProperty("centerOffset").GetDouble() != 0)
+                            {
+                                if(!hiddenArrow)
+                                {
+                                    hiddenArrow = true;
+                                    StateHasChanged();
+                                }
+                            } else
+                            {
+                                if(hiddenArrow)
+                                {
+                                    hiddenArrow = false;
+                                    StateHasChanged();
+                                }
+                            }
+                        }
+                        return args.State;
+                    }),
+                    new(ModifierName.Offset) {
+                        Options = new {offset = new int[]{0, 4}}
+                    }
+                        }
+                };
+        }
+        else
+        {
+            return new Options()
+                {
+                    Placement = Placement
+                };
+        }
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (Instance == null)
+        {
+            var reference = ReferenceRequestor();
+            if (Active && reference.Context is not null && Tooltip.Context is not null)
+            {
+                Instance = await Popper.CreatePopperAsync(reference, Tooltip, Options());
+            }
+        }
+        else
+        {
+            if (Active)
+            {
+                await Instance.SetOptions(Options());
+            }
+            else
+            {
+                await Instance.Destroy();
+                Instance = null;
+            }
+        }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && Active)
+        {
+            Instance = await Popper.CreatePopperAsync(ReferenceRequestor(), Tooltip, Options());
+        }
+    }
+}

@@ -183,7 +183,7 @@ app {
 }
 
 
-#popper {
+.popper {
     background: #333;
     color: white;
     font-weight: bold;
@@ -192,7 +192,7 @@ app {
     border-radius: 4px;
 }
 
-#reference {
+.reference {
     background: #CCC;
     color: black;
     font-weight: bold;
@@ -216,24 +216,24 @@ app {
     background: #333;
 }
 
-#popper[data-popper-placement^='top'] > .arrow {
+.popper[data-popper-placement^='top'] > .arrow {
     bottom: -4px;
 }
 
-#popper[data-popper-placement^='bottom'] > .arrow {
+.popper[data-popper-placement^='bottom'] > .arrow {
     top: -4px;
 }
 
-#popper[data-popper-placement^='left'] > .arrow {
+.popper[data-popper-placement^='left'] > .arrow {
     right: -4px;
 }
 
-#popper[data-popper-placement^='right'] > .arrow {
+.popper[data-popper-placement^='right'] > .arrow {
     left: -4px;
 }
 
 /* Hide the popper when the reference is hidden */
-#popper[data-popper-reference-hidden] {
+.popper[data-popper-reference-hidden] {
     visibility: hidden;
     pointer-events: none;
 }
