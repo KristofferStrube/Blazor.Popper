@@ -27,12 +27,12 @@ dotnet add package KristofferStrube.Blazor.Popper
 # Usage
 The package can be used in Blazor WebAssembly projects.
 ## Assets
-You first need to reference `popper.js` since this is only a wrapper. You can do this using you favorite JS package manager (e.g. `NPM` or `Library Manager`) or just add the following to the body of your `index.html` file after the point where you reference `_framework/blazor.webassembly.js`.
+You first need to reference `popper.js` since this is only a wrapper. You can do this using your favorite JS package manager (e.g. `NPM` or `Library Manager`) or just add the following to the body of your `index.html` file after the point where you reference `_framework/blazor.webassembly.js`.
 ```html
 <script src="https://unpkg.com/@popperjs/core@2"></script>
 ```
 ## Import
-You also need to reference the package in order to use it in you packages. This can be done in `_Import.razor` by adding the following.
+You also need to reference the package in order to use it in your pages. This can be done in `_Import.razor` by adding the following.
 ```csharp
 @using KristofferStrube.Blazor.Popper
 ```
@@ -46,7 +46,7 @@ public static async Task Main(string[] args)
 
     // Other services are added.
 
-    builder.Services.AddScoped(sp => new Popper(sp.GetService<IJSRuntime>()));
+    builder.Services.AddScoped<Popper>();
 
     await builder.Build().RunAsync();
 }
@@ -56,7 +56,7 @@ In any page that need a popper you can then inject Popper by adding the followin
 ```
 @inject Popper Popper;
 ```
-Then you can use the popper to create a popper instance between two `ElementReference`'s like so:
+Then you can use `Popper` to create a popper instance between two `ElementReference`'s like so:
 ```csharp
 <span @ref=reference>reference</span>
 <span @ref=popper>popper</span>
