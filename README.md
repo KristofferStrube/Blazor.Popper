@@ -57,7 +57,7 @@ In any page that need a popper you can then inject Popper by adding the followin
 @inject Popper Popper;
 ```
 Then you can use `Popper` to create a popper instance between two `ElementReference`'s like so:
-```csharp
+```razor
 <span @ref=reference>reference</span>
 <span @ref=popper>popper</span>
 
