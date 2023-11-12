@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
-
   <PropertyGroup>
     <Title>Blazor Popper wrapper</Title>
     <Description>Popper.js wrapper implementation for Blazor.</Description>
@@ -9,12 +8,11 @@
     <RepositoryType>git</RepositoryType>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageVersion>0.4.0</PackageVersion>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <Authors>Kristoffer Strube</Authors>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIcon>icon.png</PackageIcon>
   </PropertyGroup>
-
   <ItemGroup>
     <None Include="..\..\docs\icon.png">
       <Pack>True</Pack>
@@ -25,12 +23,10 @@
       <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
-
   <ItemGroup>
     <SupportedPlatform Include="browser" />
   </ItemGroup>
-  
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.0-rc.2.23480.2" />
   </ItemGroup>
 </Project>
