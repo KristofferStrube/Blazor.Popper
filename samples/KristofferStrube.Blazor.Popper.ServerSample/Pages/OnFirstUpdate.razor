@@ -1,0 +1,31 @@
+﻿@page "/OnFirstUpdate"
+@inject Popper Popper
+
+<span class="reference" @ref=reference aria-describedby="tooltip" value="My Button">Reference</span>
+<span class="popper" @ref=tooltip role="tooltip">Response From First Update:<br /> @respFromFirstUpdate</span>
+
+@code {
+    protected ElementReference reference;
+
+    protected ElementReference tooltip;
+
+    protected ElementReference parent;
+
+    protected string respFromFirstUpdate { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Options options = new()
+            {
+                OnFirstUpdate = (State state) =>
+                {
+                    respFromFirstUpdate = state.Placement.ToString();
+                    StateHasChanged();
+                },
+            };
+            await Popper.CreatePopperAsync(reference, tooltip, options);
+        }
+    }
+}

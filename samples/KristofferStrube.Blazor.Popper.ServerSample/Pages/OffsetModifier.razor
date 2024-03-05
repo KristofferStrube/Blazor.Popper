@@ -1,0 +1,29 @@
+﻿@page "/OffsetModifier"
+@inject Popper Popper
+
+<span class="reference" @ref=reference aria-describedby="tooltip" value="My Button">Reference</span>
+<span class="popper" @ref=tooltip role="tooltip">Offset popper right [20, 50]</span>
+
+
+@code {
+    protected ElementReference reference;
+
+    protected ElementReference tooltip;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Options options = new()
+            {
+                Placement = Placement.Right,
+                Modifiers = new Modifier[] {
+                    new(ModifierName.Offset) {
+                        Options = new OffsetOptions() {Offset = new[] {20.0, 50.0}}
+                    }
+                }
+            };
+            Instance instance = await Popper.CreatePopperAsync(reference, tooltip, options);
+        }
+    }
+}

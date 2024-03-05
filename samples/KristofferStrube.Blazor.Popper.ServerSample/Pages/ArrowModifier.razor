@@ -1,0 +1,68 @@
+﻿@page "/ArrowModifier"
+@using System.Text.Json
+@inject Popper Popper
+
+<div @ref=parent style="width:100%;height:200px;border:2px dashed black;overflow-y:scroll;">
+    <div style="height:400px;">
+        <div class="reference" @ref=reference aria-describedby="tooltip" style="height:40px;width:100px;margin-top:50px;margin-left:50px;text-align:center;"></div>
+        <div class="popper" @ref=tooltip role="tooltip" style="text-align:center;"><div class="arrow" @ref=arrow style="@(hiddenArrow ? "visibility:hidden;" : "")"></div>Popper</div>
+    </div>
+</div>
+
+
+@code {
+    protected ElementReference reference;
+
+    protected ElementReference tooltip;
+
+    protected ElementReference parent;
+
+    protected ElementReference arrow;
+
+    protected bool hiddenArrow = false;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Options options = new()
+            {
+                Placement = Placement.Bottom,
+                Modifiers = new Modifier[] {
+                    new(ModifierName.Arrow) {
+                        Options = new ArrowOptions {Element = arrow},
+                    },
+                    new("applyArrowHide", true, ModifierPhases.Write, (args) =>
+                    {
+                        if(args.State.Elements.Contains("arrow"))
+                        {
+                            if (args.State.ModifiersData["arrow"].GetProperty("centerOffset").GetDouble() != 0)
+                            {
+                                if(!hiddenArrow)
+                                {
+                                    hiddenArrow = true;
+                                    StateHasChanged();
+                                }
+                            } else
+                            {
+                                if(hiddenArrow)
+                                {
+                                    hiddenArrow = false;
+                                    StateHasChanged();
+                                }
+                            }
+                        }
+                        return args.State;
+                    }),
+                    new(ModifierName.Offset) {
+                        Options = new {offset = new int[]{0, 4}}
+                    },
+                    new(ModifierName.PreventOverflow) {
+                        Options = new {boundary = parent},
+                    },
+                }
+            };
+            Instance instance = await Popper.CreatePopperAsync(reference, tooltip, options);
+        }
+    }
+}

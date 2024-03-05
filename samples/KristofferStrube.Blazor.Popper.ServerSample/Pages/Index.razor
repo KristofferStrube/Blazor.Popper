@@ -1,0 +1,12 @@
+﻿@page "/"
+
+<h2>Example of using the <code>PopperComponent</code> to create a popper</h2>
+
+<button class="btn btn-primary" @ref=reference aria-describedby="tooltip" @onclick="() => active = !active">Toggle</button>
+<PopperComponent ReferenceRequestor="() => reference" Id="tooltip" Active="active" AddArrow="true">tooltip</PopperComponent>
+
+@code {
+    protected ElementReference reference;
+
+    protected bool active = true;
+}

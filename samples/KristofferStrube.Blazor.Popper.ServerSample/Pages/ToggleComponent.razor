@@ -1,0 +1,37 @@
+﻿@page "/ToggleComponent"
+
+<h1>Example of using the <code>TogglePopperComponent</code></h1>
+
+<p>On this page we show how to use the <code>TogglePopperComponent</code> to create a popper that gets toggled on either click or hover.</p>
+<p>We also switch which placement the two <code>TogglePopperComponent</code>s use when you either click or hover over the respective button.</p>
+
+<TogglePopperComponent AddArrow="true" Placement="Placement">
+    <Reference>
+        <button @onclick="() => NextPlacement(1)" class="btn btn-primary">Click me!</button>
+    </Reference>
+    <Tooltip>
+        Wow, you clicked me. We switched the Placement to @((Placement).ToString())!
+        <br />
+        Try to press me again.
+    </Tooltip>
+</TogglePopperComponent>
+
+<TogglePopperComponent AddArrow="true" Placement="Placement" ToggleMethod=ToggleMethod.Hover>
+    <Reference>
+        <button @onpointerout="() => NextPlacement(2)" class="btn btn-primary">Hover over me!</button>
+    </Reference>
+    <Tooltip>
+        ✨ Surprise @((Placement).ToString())! ✨
+    </Tooltip>
+</TogglePopperComponent>
+
+@code {
+    Placement Placement;
+    int PlacementIndex = 0;
+
+    private void NextPlacement(int increment)
+    {
+        PlacementIndex = (PlacementIndex + increment) % 30;
+        Placement = (Placement)(PlacementIndex / 2);
+    }
+}

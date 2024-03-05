@@ -26,7 +26,7 @@ public class Popper
         else
         {
             IJSObjectReference popperWrapper = await jSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/KristofferStrube.Blazor.Popper/KristofferStrube.Blazor.popper.js");
-            IJSObjectReference jSInstance = await popperWrapper.InvokeAsync<IJSObjectReference>("createPopper", reference, popper, options);
+            IJSObjectReference jSInstance = await popperWrapper.InvokeAsync<IJSObjectReference>("createPopperAsync", reference, popper, options);
             return new(jSInstance, popperWrapper);
         }
     }
@@ -44,7 +44,7 @@ public class Popper
         else
         {
             IJSObjectReference popperWrapper = await jSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/KristofferStrube.Blazor.Popper/KristofferStrube.Blazor.popper.js");
-            IJSObjectReference jSInstance = await popperWrapper.InvokeAsync<IJSObjectReference>("createPopper", reference, popper, options);
+            IJSObjectReference jSInstance = await popperWrapper.InvokeAsync<IJSObjectReference>("createPopperAsync", reference, popper, options);
             return new(jSInstance, popperWrapper);
         }
     }

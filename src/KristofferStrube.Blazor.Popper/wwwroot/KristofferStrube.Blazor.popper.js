@@ -1,4 +1,4 @@
-﻿export function createPopper(reference, popper, options) {
+﻿export async function createPopper(reference, popper, options) {
     cleanOptions(options);
 
     if (!(reference instanceof Element)) {
@@ -10,6 +10,25 @@
     return Popper.createPopper(reference, popper, options);
 }
 
+export async function createPopperAsync(reference, popper, options) {
+    cleanOptions(options);
+
+    if (!(reference instanceof Element)) {
+        var objRef = reference.objRef;
+        var intermediateClientRectCache = {
+            "rect": {}
+        };
+        reference.getBoundingClientRect = () => {
+            objRef.invokeMethodAsync('CallGetBoundingClientRect').then(rect => intermediateClientRectCache.rect = rect);
+            return intermediateClientRectCache.rect;
+        };
+        delete reference.objRef;
+    }
+
+    return Popper.createPopper(reference, popper, options);
+}
+
+
 export function getStateOfInstance(instance) {
     return stripState(instance.state)
 }
@@ -18,8 +37,8 @@ export function updateOnInstance(instance) {
     return instance.update().then(state => stripState(state));
 }
 
-export function setOptionsOnInstance(instance, options) {
-    cleanOptions(options);
+export async function setOptionsOnInstance(instance, options) {
+    await cleanOptions(options);
 
     return instance.setOptions(options).then(state => stripState(state));
 }

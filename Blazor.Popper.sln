@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KristofferStrube.Blazor.Pop
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KristofferStrube.Blazor.Popper.Samples", "samples\KristofferStrube.Blazor.Popper.Samples\KristofferStrube.Blazor.Popper.Samples.csproj", "{C5D14C58-74C3-41DE-9DE3-247AB4469809}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KristofferStrube.Blazor.Popper.ServerSample", "samples\KristofferStrube.Blazor.Popper.ServerSample\KristofferStrube.Blazor.Popper.ServerSample.csproj", "{BB03D5EE-4120-4151-AC8A-9E4B938FD7A9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{C5D14C58-74C3-41DE-9DE3-247AB4469809}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5D14C58-74C3-41DE-9DE3-247AB4469809}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C5D14C58-74C3-41DE-9DE3-247AB4469809}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB03D5EE-4120-4151-AC8A-9E4B938FD7A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB03D5EE-4120-4151-AC8A-9E4B938FD7A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB03D5EE-4120-4151-AC8A-9E4B938FD7A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB03D5EE-4120-4151-AC8A-9E4B938FD7A9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
