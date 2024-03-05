@@ -1,0 +1,189 @@
+﻿@using Microsoft.AspNetCore.Components.Web
+
+@inject Popper Popper
+
+<div style=@ReferenceWrapperStyle class=@ReferenceWrapperClass id=@ReferenceWrapperId @ref="ReferenceRef" @onclick="Click" @onpointermove="PointerMove" @onpointerout="PointerOut">
+    @Reference
+</div>
+@if (active)
+{
+    <span @ref="TooltipRef" id=@(Instance is not null ? PopperId : "") class=@(Instance is not null ? PopperClass : "")>
+        <div class=@(Instance is not null ? "arrow" : "") @ref=ArrowRef style="@((hiddenArrow || Instance is null || !AddArrow) ? "visibility:hidden;" : "")"></div>
+        @if (Instance is not null)
+        {
+            @Tooltip
+        }
+    </span>
+}
+
+@code {
+    private ElementReference ReferenceRef;
+    private ElementReference TooltipRef;
+    private ElementReference ArrowRef;
+    private bool hiddenArrow;
+    private Instance Instance;
+    private bool active;
+
+    [Parameter, EditorRequired]
+    public RenderFragment Reference { get; set; }
+
+    [Parameter, EditorRequired]
+    public RenderFragment Tooltip { get; set; }
+
+    [Parameter]
+    public ElementReference? BoundaryElement { get; set; }
+
+    [Parameter]
+    public Placement Placement { get; set; } = Placement.Auto;
+
+    [Parameter]
+    public bool AddArrow { get; set; }
+
+    [Parameter]
+    public string PopperId { get; set; }
+
+    [Parameter]
+    public string PopperClass { get; set; } = "popper";
+
+    [Parameter]
+    public string ReferenceWrapperId { get; set; }
+
+    [Parameter]
+    public string ReferenceWrapperClass { get; set; }
+
+    /// <summary>
+    /// Defaults to <c>"display:inline-block"</c>
+    /// </summary>
+    [Parameter]
+    public string ReferenceWrapperStyle { get; set; } = "display:inline-block";
+
+    [Parameter]
+    public ToggleMethod ToggleMethod { get; set; } = ToggleMethod.Click;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (Instance is not null)
+        {
+            await Instance.Destroy();
+            Instance = null;
+        }
+        await OpdatePopperAsync();
+    }
+
+    protected async Task OpdatePopperAsync()
+    {
+        if (Instance == null)
+        {
+            if (active && TooltipRef.Context is not null)
+            {
+                Instance = await Popper.CreatePopperAsync(ReferenceRef, TooltipRef, Options());
+            }
+        }
+        else
+        {
+            if (active && TooltipRef.Context is not null)
+            {
+                await Instance.SetOptions(Options());
+            }
+            else
+            {
+                await Instance.Destroy();
+                Instance = null;
+            }
+        }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (active && Instance is null && TooltipRef.Context is not null)
+        {
+            Instance = await Popper.CreatePopperAsync(ReferenceRef, TooltipRef, Options());
+        }
+    }
+
+    private async Task Click()
+    {
+        if (ToggleMethod is ToggleMethod.Click)
+        {
+            active = !active;
+            StateHasChanged();
+            await Task.Yield();
+            await OpdatePopperAsync();
+        }
+    }
+
+    private async Task PointerMove()
+    {
+        if (ToggleMethod is ToggleMethod.Hover)
+        {
+            if (!active) active = true;
+            StateHasChanged();
+            await Task.Yield();
+            await OpdatePopperAsync();
+        }
+    }
+
+    private async Task PointerOut()
+    {
+        if (ToggleMethod is ToggleMethod.Hover)
+        {
+            if (active) active = false;
+            StateHasChanged();
+            await Task.Yield();
+            await OpdatePopperAsync();
+        }
+    }
+
+    private Options Options()
+    {
+        var modifiers = new List<Modifier>();
+
+        if (AddArrow)
+        {
+            modifiers.Add(new(ModifierName.Arrow)
+                {
+                    Options = new ArrowOptions { Element = ArrowRef },
+                });
+            modifiers.Add(new("applyArrowHide", true, ModifierPhases.Write, (args) =>
+                {
+                    if (args.State.Elements.Contains("arrow"))
+                    {
+                        if (args.State.ModifiersData["arrow"].GetProperty("centerOffset").GetDouble() != 0)
+                        {
+                            if (!hiddenArrow)
+                            {
+                                hiddenArrow = true;
+                                StateHasChanged();
+                            }
+                        }
+                        else
+                        {
+                            if (hiddenArrow)
+                            {
+                                hiddenArrow = false;
+                                StateHasChanged();
+                            }
+                        }
+                    }
+                    return args.State;
+                }));
+            modifiers.Add(new(ModifierName.Offset)
+                {
+                    Options = new { offset = new int[] { 0, 4 } }
+                });
+        }
+        if (BoundaryElement is { } boundary)
+        {
+            modifiers.Add(new(ModifierName.PreventOverflow)
+                {
+                    Options = new PreventOverflowOptions { Boundary = boundary }
+                });
+        }
+
+        return new Options()
+            {
+                Placement = Placement,
+                Modifiers = modifiers.ToArray()
+            };
+    }
+}
