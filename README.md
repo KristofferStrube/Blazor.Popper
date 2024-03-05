@@ -2,7 +2,6 @@
 [![GitHub issues](https://img.shields.io/github/issues/KristofferStrube/Popperize)](https://github.com/KristofferStrube/Popperize/issues)
 [![GitHub forks](https://img.shields.io/github/forks/KristofferStrube/Popperize)](https://github.com/KristofferStrube/Popperize/network/members)
 [![GitHub stars](https://img.shields.io/github/stars/KristofferStrube/Popperize)](https://github.com/KristofferStrube/Popperize/stargazers)
-
 [![NuGet Downloads (official NuGet)](https://img.shields.io/nuget/dt/KristofferStrube.Blazor.Popper?label=NuGet%20Downloads)](https://www.nuget.org/packages/KristofferStrube.Blazor.Popper/)  
 
 # Introduction
